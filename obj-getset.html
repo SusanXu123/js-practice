@@ -1,0 +1,49 @@
+<html>
+<h3>
+Object.defineProperty
+
+</h3>
+<p>
+  对象属性中分数据属性和存取器属性，存取器属性即getter、setter，当程序查询存取器属性时，js调用getter； 当程序设置一个存取器属性的值时，js调用setter方法，将赋值表达式右侧的值当参数
+</p>
+<p>
+  存取器属性都是成对定义的函数
+</p>
+<p>
+  存取器属性跟数据属性一样，是可以继承的
+</p>
+</html>
+<script>
+/*
+定义个存取器属性
+ */
+var o = {
+  x: 5,
+  get r () {
+    return this.x * 2
+  },
+  set r (v) {
+    const x = v / 2
+    this.x = x
+  }
+}
+console.log(o)
+o.r = 99
+console.log(o)
+/*
+双向绑定
+ */
+var dep = []
+var moduleObj = {
+ x: 5,
+ get r () {
+   return dep['r']
+ },
+ set r (v) {
+   dep['r'] = v
+ }
+}
+console.log(moduleObj)
+moduleObj.r = 99
+console.log(moduleObj)
+</script>

@@ -1,0 +1,22 @@
+<html>
+<h3>
+bind的调用
+
+</h3>
+</html>
+<script>
+function Fun1() {
+  this.name = 1;
+ }
+Fun1.prototype.fun2 = function() {
+  window.setTimeout(this.fun3.bind(this), 1000);
+ }
+Fun1.prototype.fun3 = function(){
+    console.log('name:'+this.name);//name:1
+}
+var fun = new Fun1();
+console.log('fun==', fun)
+Fun1.fun2()
+fun.fun2()
+
+</script>

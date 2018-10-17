@@ -1,0 +1,29 @@
+<html>
+<h3>
+constructor
+
+</h3>
+</html>
+<script>
+function Vue (options) {
+  console.log(options)
+  // debugger
+  this._init(options)
+}
+
+function initMixin (Vue) {
+  // debugger
+  Vue.prototype._init = function (options) {
+    console.log('initMixin==', this, options.mixins)
+    const vm = this
+    vm.$options = options
+  }
+}
+initMixin(Vue)
+console.log(Vue)
+const Vm = new Vue({
+  mixins: 'test======'
+})
+console.log(Vm)
+debugger
+</script>

@@ -1,0 +1,57 @@
+<html>
+<h3>
+bind的调用
+
+</h3>
+</html>
+<script>
+// function Fun1 () {
+//   return {
+//     a: '666'
+//   }
+// }
+//
+// function Fun2 (fun, sColor) {
+//   console.log(this)
+//   const a = fun.call(this, sColor)
+//   debugger
+//   return a
+// }
+// // Fun2(Fun1, {b: 77})
+// function Animal(name){
+//     console.log('Animal===', this)
+//     this.name = name;
+//     this.showName = function(){
+//         alert(this.name);
+//     }
+// }
+//
+// function Cat(name){
+//   console.log(this)
+//   Animal.call(this, name);
+// }
+//
+// var cat = new Cat("Black Cat");
+// console.log('cat===', cat)
+// debugger
+// cat.showName()
+// Animal.call(this)
+/**
+ * call 合并方法功能
+ */
+function data1 () {
+	this.a = 666
+	return this
+}
+
+function Merge () {
+  this.b = 88
+  data1.call(this, this)
+}
+const merge = new Merge()
+console.log('call 合并方法功能 ----', merge) // {a: 666, b: 777}
+
+/**
+ * call 
+ */
+</script>
