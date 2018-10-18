@@ -1,0 +1,68 @@
+<html>
+<body>
+defineProperty
+
+
+</body>
+</html>
+<script>
+var data = {
+  a: {
+    b: 88
+  }
+}
+debugger
+function walk (data) {
+  // debugger
+  for (let key in data) {
+    var val = data[key]
+    if (Object.prototype.toString.call(val) === '[object Object]') {
+      walk(val)
+    }
+    // debugger
+    Object.defineProperty(data, key, {
+      set: function (newVal) {
+        debugger
+        val = newVal
+      },
+      get: function () {
+        return val
+      }
+    })
+  }
+}
+
+walk(data)
+debugger
+// Object.defineProperty(data, 'a', {
+//   set: function (val) {
+//     debugger
+//     newA = val
+//   },
+//   get: function () {
+//     return newA
+//   }
+// })
+// Object.defineProperty(data.a, 'b', {
+//   set: function (val) {
+//     newB = val
+//     debugger
+//   },
+//   get: function () {
+//     return newB
+//   }
+// })
+// debugger
+// data.a = {b: 77}
+debugger
+setTimeout(function () {
+  debugger
+  data.a.b = 9999
+  debugger
+}, 1000);
+setTimeout(function () {
+  debugger
+  data.a = {b: 10000}
+  debugger
+}, 2000);
+</script>
