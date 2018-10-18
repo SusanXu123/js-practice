@@ -1,0 +1,78 @@
+<html>
+<body>
+
+</body>
+</html>
+<script>
+const data = {
+  name: '霍春阳',
+  age: 24
+}
+
+function render () {
+  return document.write(`姓名：${data.name}; 年龄：${data.age}`)
+}
+
+// Target 是全局变量
+let Target = null
+// get 的时候添加回调函数，set的时候 触发回调函数
+function walk (data) {
+  for (let key in data) {
+    const dep = []
+    let val = data[key]
+    // 如果 val 是对象，递归调用 walk 函数将其转为访问器属性
+    const nativeString = Object.prototype.toString.call(val)
+    if (nativeString === '[object Object]') {r
+      walk(val)
+    }
+    Object.defineProperty(data, key, {
+      set (newVal) {
+        console.log('newVal==', newVal);
+        if (newVal === val) return
+        val = newVal
+        dep.forEach(fn => fn(val))
+        console.log('set dep===', key, dep);
+      },
+      get () {
+        dep.push(Target)
+        console.log('get key==', key, dep);
+        return val
+      }
+    })
+  }
+}
+
+walk(data)
+
+function $watch (exp, fn) {
+  Target = fn
+
+  let pathArr,
+      obj = data
+  // 如果 exp 是函数，直接执行该函数
+  if (typeof exp === 'function') {
+    exp()
+    return
+  }
+  // 检查 exp 中是否包含 .
+  if (/\./.test(exp)) {
+    // 将字符串转为数组，例：'a.b' => ['a', 'b']
+    pathArr = exp.split('.')
+    // 使用循环读取到 data.a.b
+    pathArr.forEach(p => {
+      obj = obj[p]
+    })
+    return
+  }
+  data[exp]
+}
+
+
+setTimeout(function () {
+  console.log('----------');
+
+}, 1000);
+
+$watch(render, render)
+
+</script>
