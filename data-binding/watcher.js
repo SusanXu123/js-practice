@@ -20,7 +20,7 @@ Watcher.prototype = {
     Dep.target = this  // 缓存自己
     var value = this.vm.data[this.exp]
     // 强制执行监听器里的get函数
-    // debugger
+    debugger
     Dep.target = null  // 释放自己
     // debugger
     return value
