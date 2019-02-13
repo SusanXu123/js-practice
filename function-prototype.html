@@ -1,0 +1,20 @@
+<html></html>
+<script>
+function Person () {
+}
+// Person.prototype.sayName = function () {
+//   console.log('susan')
+// }
+// const susan = new Person()
+// susan.sayName()
+Person.prototype = {
+  age: 11,
+  sayAge: function () {
+    console.log(this.age)
+  }
+}
+const susan = new Person()
+// susan.sayName()
+console.log(susan.__proto__)
+console.log(susan.constructor)
+</script>

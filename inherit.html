@@ -1,0 +1,25 @@
+<html></html>
+<script>
+function SuperType () {
+  this.property = true
+}
+SuperType.prototype.getSuperValue = function () {
+  return this.property
+}
+function SubType () {
+  this.subproperty = true
+}
+SubType.prototype = new SuperType()
+SubType.prototype.getSubValue = function () {
+  return this.subproperty
+}
+var instance = new SubType()
+console.log(instance.property)
+console.log(instance.getSuperValue())
+console.log(SuperType.prototype)
+console.log(SubType.prototype)
+console.log(instance)
+console.log('SuperType.prototype.constructor---', SuperType.prototype.constructor) // SuperType
+console.log('SubType.prototype.constructor---', SubType.prototype.constructor) // SuperType
+console.log('instance.constructor--', instance.constructor) // SuperType
+</script>

@@ -1,0 +1,29 @@
+<html></html>
+<script>
+function Person (name) {
+  this.name = name
+}
+Person.prototype.age = 13
+const susan = new Person('susan Xu')
+Object.defineProperties(susan, {
+  sex: {
+    enumerable: true,
+    value: 'girl'
+  },
+  year: {
+    get: function () {
+      return 2018 - this.age
+    }
+  },
+  firstName: {
+    enumerable: true,
+    get: function () {
+      return this.name.slice(-2)
+    }
+  }
+})
+console.log(susan.year)
+for (const key in susan) {
+console.log('key----', key, susan[key])
+}
+</script>
