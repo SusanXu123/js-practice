@@ -1,0 +1,72 @@
+<html></html>
+<script>
+const singleChar = 'The colors of the rainbow have many colours and the rainbow does not  have a single colour 1777(etwt)'
+
+const allWord = /\w/g
+const threeWord = /\w\w\w/g
+const twoTabs = /\s\s/g
+console.log('allWord---', singleChar.match(allWord))
+console.log('threeWord---', singleChar.match(threeWord))
+console.log('twoTabs---', singleChar.match(twoTabs))
+
+const quantifiers = 'The colors of the rainbow have many colours and the rainbow does not  have a single colour'
+const colors = /colou?rs?/g
+console.log('colors colours colour---', quantifiers.match(colors))
+
+const positionStr = 'This is somthing is about a blah words sequence of words Hello and GoodBye and Go gogo!'
+const word5 = /\b\w{5}\b/g
+console.log('five unit word----', positionStr.match(word5))
+
+const phoneStr = 'this is a phone number 123-456-1231'
+const phone = /\d{3}-\d{3}-\d{4}/g
+console.log('phone---', phoneStr.match(phone))
+ 
+// 分类符[] 表示逻辑关系或
+// 在[]中，特殊字符不需要转义
+// []中的^相当于取反
+// ()也是表示或逻辑，用法(a|b)
+// /[-.(]/ 在符号中的连字符'-'放在第一位表示连字符本身，如果放在中间，表示"从..到.."，比如[a-z]表示a-z
+const charClass = 'The lynk is quite a link do not you think? l nk l(nk, phone is 123-345-1234 or 123.123.1234'
+const classReg = /l[yi (]nk/g
+const phoneAll = /\d{3}[-.]\d{3}[-.]\d{4}/g
+console.log('char class ----', charClass.match(classReg))
+console.log('all phone  ----', charClass.match(phoneAll))
+
+const emailStr = 'my emails arr gaoyaqi411@126.com and dyumc@google.net and sam@sjtu.edu'
+const emialReg = /[\w.]+@\w+\.(com|net|edu)/g
+console.log('emails is ----', emailStr.match(emialReg))
+
+// 分组捕获(capturing groups)
+// 分组捕获，使用()进行数据分组，编号0代表整个匹配项，选择的分组从1号开始，$0 是所有匹配到的，所以第一个加括号的是$1
+// .是贪婪的，他表示所有，所有能匹配到的，?符号可以禁止贪婪属性，放在.*之后，表示一次匹配遇到重点就可以停止。否则将会一直向后匹配。
+let phoneStr2 = 'phones have 212-555-1234 915.412.1333'
+// const phoneReg2 = /\(?(\d{3})[-.)]\d{3}[-.]\d{4}/g
+const phoneReg2 = /\(?(\d{3})[-.)]\d{3}[-.]\d{4}/
+let newPhnes = phoneStr2.replace(phoneReg2, '$1-xxx-xxxx')
+console.log('phones is ----', phoneStr2.match(phoneReg2))
+console.log('new Phones is --', newPhnes)
+const names = 'shiffina, Daniel shifafl, Daniell shquer, Danny'
+const nameReg = /(\w+),\s(\w+)/
+console.log('names----', names.match(nameReg), names.replace(nameReg, '$2 $1'))
+const links = '[google](http://google.com) [itp](http://itp.nyu.edu) [Coding Rainbow](http://codingrainbow.com)'
+const linkReg = /\[(.*?)\]\((http.*?)\)/g
+console.log('links is ---', links.match(linkReg))
+console.log('links is ---', links.replace(linkReg, '<a href="$2">$1</a>'))
+
+
+// \选择器
+// \1 指定第一个子匹配项。既分组的$1的匹配值， 选择器可以使用$1和\1，但是使用场景不同，\用在正则表达式自己身上
+const selectorStr = 'This is is a a dog , I think think this is is really a a good good dog. Do not you you thinks so so ?'
+const selectorReg = /\b(\w{3})\b\s\1/g
+console.log('two same str ---', selectorStr.match(selectorReg))
+
+// 在js中的应用
+const jsStr = 'Here is a Phone Number 111-2313 and 133-2311'
+var srg = /(\d{3})[-.]\d{4}/g
+console.log('srg res ---', srg.exec(jsStr), jsStr.match(srg))
+
+const patternStr = 'Here is a Phone Number 111-2313 and 133-2311'
+const patternReg = /(?:\d{3}-)/g
+console.log('pattern reg--', patternStr.match(patternReg), patternStr.replace(patternReg, '$1-'))
+
+</script>
