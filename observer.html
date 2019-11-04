@@ -1,0 +1,48 @@
+<html>
+<body>
+  <button id="btn" onclick="onBtnClick()">响应式</button>
+</body>
+</html>
+<script>
+class Vue {
+  constructor (options) {
+    this.data = options.data
+    observer(this.data)
+  }
+}
+ function observer (data) {
+   for (const key in data) {
+     console.log('observer:', data, key, data[key]);
+     defineReactive(data, key, data[key])
+   }
+ }
+
+ function cb (key, val) {
+   console.log(`${key}更新为${val}`)
+ }
+
+ function defineReactive(obj, key, val) {
+   console.log('defineReactive:', obj, key, val)
+   Object.defineProperty(obj, key, {
+      enumerable: true,       /* 属性可枚举 */
+      configurable: true,     /* 属性可被修改或删除 */
+      get: function () {
+        console.log('getters:', val);
+        return val
+      },
+      set: function (newVal) {
+        console.log('newVal--', newVal)
+        if (newVal === val) {return}
+        cb(key, newVal)
+      }
+   })
+ }
+
+ var vm = new Vue({data: {count: 0}})
+
+function onBtnClick () {
+  console.log('233', vm)
+  vm.data.count = vm.data.count + 1
+  // debugger
+}
+</script>
