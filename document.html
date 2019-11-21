@@ -1,0 +1,49 @@
+<html>
+  <script>
+    window.onload = function () {
+      var c = document.getElementById('container')
+      console.log('this is onload', c);
+    }
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var c = document.getElementById('container')
+      console.log("dom content loaded", c);
+    })
+    document.onreadystatechange = function (params) {
+      var c = document.getElementById('container') 
+      console.log('onreadystatechange:',document.readyState, c)
+    }
+  </script>
+  <script defer src="./js1.js"></script>
+  <script src="./js2.js"></script>
+  <script src="./js3.js"></script>
+  <script async src="./js4.js"></script>
+  <body>
+    <div id="container">
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+      <h4>this is title</h4>
+    </div>
+  </body>
+</html>
