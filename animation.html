@@ -1,0 +1,33 @@
+<html>
+
+  <body>
+    <div>
+      <div class="sleft"></div>
+      <button id="div">开始</button>
+      <button id="stop">结束</button>
+    </div>
+  </body>
+</html>
+<style>
+#div {
+  width: 200px;
+  height: 200px;
+  background-color: pink;
+}
+</style>
+<script>
+var deg = 0;
+var id;
+var div = document.getElementById("div");
+div.addEventListener('click', function () {
+    var self = this;
+    requestAnimationFrame(function change() {
+        self.style.transform = 'rotate(' + (deg++) + 'deg)';
+        id = requestAnimationFrame(change);
+    });
+});
+document.getElementById('stop').onclick = function () {
+    cancelAnimationFrame(id);
+};
+
+</script>
