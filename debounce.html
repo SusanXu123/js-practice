@@ -1,0 +1,25 @@
+<html>
+<body>
+
+  <div>
+    <button id="btn">点击我呀</button>
+  </div>
+</body>
+</html>
+<script>
+let btn = document.getElementById('btn')
+function debounce(delay, cb) {
+  var timer
+  return function () {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(cb, delay)
+  }
+}  
+
+let hanlder = function () {
+  console.log('i am clicked');
+}
+// btn.addEventListener('click', debounce(1000, hanlder))
+btn.onclick = debounce(1000, hanlder)
+
+</script>

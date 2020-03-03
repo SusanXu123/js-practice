@@ -1,0 +1,27 @@
+<html>
+  <body>
+    <div>
+      <button id="btn">点击我呀</button>
+    </div>
+  </body>
+</html>
+
+<script>
+let btn = document.getElementById('btn')
+function throttle(delay, cb) {
+  let startTime = Date.now()
+  return function () {
+    let currTime = Date.now()
+    console.log('currTime:', currTime, startTime)
+    if (currTime - startTime > delay) {
+        cb()
+       startTime = currTime;
+    }
+  }
+}
+let hanlder = function () {
+  console.log('i am clicked');
+}
+// btn.addEventListener('click', debounce(1000, hanlder))
+btn.onclick = throttle(1000, hanlder)
+</script>
