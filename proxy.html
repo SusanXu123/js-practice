@@ -1,0 +1,52 @@
+<html>
+  <body>
+
+  <div>
+    <button id="btn">点击我log a</button>
+    <button id="btn2">点击log b</button>
+    <button id="btn3">点击log c</button>
+    <button id="btn4">点击我 a + 1</button>
+    <button id="btn5">点击我 b + 1</button>
+    <button id="btn6">点击我 c + 1</button>
+  </div>
+</body>
+</html>
+<script>
+let handler = {
+  get: function(obj, name){
+    console.log('get:', obj, name);
+    return name in obj ? obj[name] : 37;
+  },
+  set: function name(obj, key, value) {
+    console.log('set:', key, value)
+    obj[key] = value
+    return value
+  }
+};
+
+let p = new Proxy({}, handler);
+
+p.a = 1;
+p.b = undefined;
+
+let btn = document.getElementById('btn')
+btn.onclick = function () {
+  console.log('i am click a:', p.a);
+}
+let btn2 = document.getElementById('btn2')
+btn2.onclick = function () {
+  console.log('i am click b:', p.b)
+}
+document.getElementById('btn3').onclick = function () {
+  console.log('i am click c:', p.c)
+}
+document.getElementById('btn4').onclick = function () {
+  console.log('i am set a:', p.a = p.a + 1)
+}
+document.getElementById('btn5').onclick = function () {
+  console.log('i am set b:', p.b = p.b + 1)
+}
+document.getElementById('btn6').onclick = function () {
+  console.log('i am set c:', p.c = p.c + 1, p)
+}
+</script>
