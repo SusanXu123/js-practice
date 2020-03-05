@@ -1,0 +1,113 @@
+<html>
+<body></body>
+</html>
+<script>
+
+Function.prototype.myBind = function (context) {
+  context = Object(context) || window
+  let that = this
+  let bindArgs = []
+  for (let i = 1; i < arguments.length; i++) {
+    bindArgs.push(arguments[i])
+  }
+  function Fn() { }
+  function bindFn () {
+    let args = [...bindArgs]
+    if (arguments && arguments.length) {
+      for (let i = 0; i < arguments.length; i++) {
+        args.push(arguments[i])
+      }
+    }
+    /*
+     * 绑定`this`指向
+     * 如果绑定的函数被`new`执行 ，当前函数的`this`就是当前的实例
+     */
+    let ctx = this instanceof bindFn ? this : context
+    ctx.func = that
+    ctx.func(...args)
+    // 也可以直接使用apply 
+    // that.apply(this instanceof bindFn ? this : context, args.concat(args2)); 
+  }
+  /*`new`出来的结果可以找到原有类的原型*/
+  Fn.prototype = that.prototype; 
+  bindFn.prototype = new Fn();
+  return bindFn
+}
+
+/* 绑定this指向 && 返回一个绑定后的函数(高阶函数原理) */
+function sing (song) {
+  console.log(`${this.name} is sing ${song}`)
+}
+let tom = {
+  name: 'tom',
+  say () {
+    console.log('my name is', this.name)
+  },
+  sayFullName (firstName, lastName) {
+    console.log(`my fullName is ${firstName}-${this.name}-${lastName}` )
+  }
+}
+let lucy = {name: 'lucy'}
+let singLucy = sing.myBind(lucy, 'baby')
+let sayLucy = tom.say.myBind(lucy)
+let sayFullNameLucy = tom.sayFullName.myBind(lucy, 'lulu', 'cycy')
+let liliSay = tom.say.myBind({name: 'lili'})
+singLucy()
+sayLucy()
+liliSay()
+sayFullNameLucy()
+
+/* 让函数拥有预设的参数 */
+function list(){
+  let data = Array.prototype.slice.call(arguments)
+  console.log('data:', data)
+  return data
+}
+list(1,2,3);//[1,2,3]
+
+//给list绑定一个预设参数4 
+var list1 = list.myBind(undefined,4);
+list1();//[4]
+list1(1,2,3);//[4,1,2,3]
+list1(7,8,9)
+
+
+/* setTimeout 使用 */
+function LateBloomer() {
+  this.petalCount = Math.ceil(Math.random() * 12) + 1;
+}
+
+// 在 1 秒钟后声明 bloom
+LateBloomer.prototype.bloom = function() {
+  window.setTimeout(this.declare.myBind(this), 1000);
+};
+
+LateBloomer.prototype.declare = function() {
+  console.log('I am a beautiful flower with ' +
+    this.petalCount + ' petals!');
+};
+
+var flower = new LateBloomer();
+flower.bloom();  // 一秒钟后, 调用 'declare' 方法
+
+
+/* 作为构造函数使用的绑定函数 */
+function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+Point.prototype.toString = function() { 
+  return this.x + ',' + this.y; 
+}
+var p = new Point(1, 2);
+p.toString(); // '1,2'
+var YAxisPoint = Point.myBind({}, 0);
+var axisPoint = new YAxisPoint(5)
+var axisPoint2 = new YAxisPoint(17, 42)
+console.log(axisPoint.toString()) // '0,5'
+
+console.log(axisPoint instanceof Point) // true
+console.log(axisPoint instanceof YAxisPoint) // true
+console.log(axisPoint2 instanceof Point) // true
+console.log(axisPoint2.toString()) // '0, 17'
+</script>
